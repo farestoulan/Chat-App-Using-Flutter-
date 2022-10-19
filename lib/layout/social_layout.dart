@@ -1,84 +1,92 @@
-import 'package:chat_app/layout/cubit/social_cubit.dart';
-import 'package:chat_app/layout/cubit/social_states.dart';
-import 'package:chat_app/shared/components/components.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../modules/new_post/new_post_screen.dart';
+import '../shared/components/components.dart';
+import '../shared/styles/icone_broken.dart';
+import 'cubit/social_cubit.dart';
+import 'cubit/social_states.dart';
 
 class SocialLayout extends StatelessWidget {
-  const SocialLayout({Key? key}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
-    return  BlocConsumer<SocialCubit , SocialStates>(
-      listener: (context ,state){},
-      builder: (context ,state){
+  Widget build(BuildContext context)
+  {
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {
+        if (state is SocialNewPostState) {
+          navigateTo(
+            context,
+            NewPostScreen(),
+          );
+        }
+      },
+      builder: (context, state)
+      {
+        var cubit = SocialCubit.get(context);
+
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'New Feed'
-                  ,
+              cubit.titles[cubit.currentIndex],
             ),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  IconBroken.Notification,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(
+                  IconBroken.Search,
+                ),
+                onPressed: () {},
+              ),
+            ],
           ),
-          body: ConditionalBuilder(
-            condition: SocialCubit.get(context).userModel != null ,
-            builder: (context) {
-              var model = SocialCubit.get(context).userModel;
-              return Column(
-                children: [
-
-                  if( !FirebaseAuth.instance.currentUser!.emailVerified)
-                  Container(
-                    color: Colors.amber.withOpacity(.6),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                      ),
-                      child: Row(
-                        children:  [
-                          Icon(Icons.info_outline),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                                'Please verify your email'
-                            ),
-                          ),
-                          Spacer(),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          defaultTextButton(function:  (){
-                            FirebaseAuth.instance.currentUser!.sendEmailVerification().then((value) {
-                              showToast(msg: 'check your mail',
-                                  state: ToastStates.ERROR,
-                              );
-                            }).catchError((error){
-                              
-                            });
-                          },
-                            text: 'Send ',
-
-                          ),
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
+          body: cubit.screens[cubit.currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentIndex,
+            onTap: (index)
+            {
+              cubit.changeBottomNav(index);
             },
-            fallback:(context) => Center(child: CircularProgressIndicator()),
-
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Home,
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Chat,
+                ),
+                label: 'Chats',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Paper_Upload,
+                ),
+                label: 'Post',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Location,
+                ),
+                label: 'Users',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Setting,
+                ),
+                label: 'Settings',
+              ),
+            ],
           ),
-
         );
       },
-
     );
   }
 }

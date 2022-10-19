@@ -29,7 +29,7 @@ class SocialLoginScreen extends StatelessWidget {
           }
           if(state is LoginSuccessState){
             CacheHelper.saveData(key: 'uId', value:state.uId).then((value) {
-              navigateAndFinish(context, const SocialLayout());
+              navigateAndFinish(context,  SocialLayout());
             });
           }
         },

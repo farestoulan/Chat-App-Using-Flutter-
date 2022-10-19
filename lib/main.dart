@@ -31,7 +31,7 @@ void main() async {
    uId = CacheHelper.getData(key: 'uId');
 
   if(uId != null){
-    widget = const SocialLayout();
+    widget =  SocialLayout();
   }else{
     widget = SocialLoginScreen();
   }
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
         builder: (context ,state){
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: liteTheme,
+            theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: AppCubit.get(context).isDark
                 ? ThemeMode.dark

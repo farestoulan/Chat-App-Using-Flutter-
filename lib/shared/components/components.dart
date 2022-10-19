@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../cubit/cubit.dart';
+import '../styles/icone_broken.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -33,6 +34,27 @@ Widget defaultButton({
         color: background,
       ),
     );
+
+PreferredSizeWidget defaultAppBar({
+  required BuildContext context,
+  String? title,
+  List<Widget>? actions,
+}) => AppBar(
+  leading: IconButton(
+    onPressed: ()
+    {
+      Navigator.pop(context);
+    },
+    icon: Icon(
+      IconBroken.Arrow___Left_2,
+    ),
+  ),
+  titleSpacing: 5.0,
+  title: Text(
+    title!,
+  ),
+  actions: actions,
+);
 
 Widget defaultTextButton({
   required Function function,
