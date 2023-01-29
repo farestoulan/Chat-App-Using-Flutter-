@@ -1,7 +1,6 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../modules/feeds/feeds_screen.dart';
 import '../modules/new_post/new_post_screen.dart';
 import '../shared/components/components.dart';
 import '../shared/styles/icone_broken.dart';
@@ -10,8 +9,7 @@ import 'cubit/social_states.dart';
 
 class SocialLayout extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
         if (state is SocialNewPostState) {
@@ -21,8 +19,7 @@ class SocialLayout extends StatelessWidget {
           );
         }
       },
-      builder: (context, state)
-      {
+      builder: (context, state) {
         var cubit = SocialCubit.get(context);
 
         return Scaffold(
@@ -32,13 +29,13 @@ class SocialLayout extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   IconBroken.Notification,
                 ),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   IconBroken.Search,
                 ),
                 onPressed: () {},
@@ -48,11 +45,10 @@ class SocialLayout extends StatelessWidget {
           body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
-            onTap: (index)
-            {
+            onTap: (index) {
               cubit.changeBottomNav(index);
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Home,

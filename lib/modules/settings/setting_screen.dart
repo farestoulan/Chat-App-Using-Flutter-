@@ -1,5 +1,5 @@
-import 'package:chat_app/layout/cubit/social_cubit.dart';
-import 'package:chat_app/layout/cubit/social_states.dart';
+import 'package:chat_app/home/cubit/social_cubit.dart';
+import 'package:chat_app/home/cubit/social_states.dart';
 import 'package:chat_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,16 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/styles/icone_broken.dart';
 import '../edit_profile/edit_profile_screen.dart';
 
-
-class SettingsScreen extends StatelessWidget
-{
+class SettingsScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
-      builder: (context, state)
-      {
+      builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel;
 
         return Padding(
@@ -54,7 +50,7 @@ class SettingsScreen extends StatelessWidget
                     CircleAvatar(
                       radius: 64.0,
                       backgroundColor:
-                      Theme.of(context).scaffoldBackgroundColor,
+                          Theme.of(context).scaffoldBackgroundColor,
                       child: CircleAvatar(
                         radius: 60.0,
                         backgroundImage: NetworkImage(
@@ -168,7 +164,10 @@ class SettingsScreen extends StatelessWidget
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      navigateTo(context, EditProfileScreen(),);
+                      navigateTo(
+                        context,
+                        EditProfileScreen(),
+                      );
                     },
                     child: Icon(
                       IconBroken.Edit,

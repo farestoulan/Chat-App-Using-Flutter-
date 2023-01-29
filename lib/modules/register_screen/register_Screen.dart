@@ -1,4 +1,4 @@
-import 'package:chat_app/layout/social_layout.dart';
+import 'package:chat_app/home/social_layout.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +23,7 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is CreateUserSuccessState) {
-            navigateAndFinish(
-                context,
-                SocialLayout()
-            );
+            navigateAndFinish(context, SocialLayout());
           }
         },
         builder: (context, state) {
@@ -48,9 +45,10 @@ class RegisterScreen extends StatelessWidget {
                       children: [
                         Text(
                           'register now to Communicate with friends',
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                color: Colors.grey,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Colors.grey,
+                                  ),
                         ),
                         const SizedBox(
                           height: 20.0,
@@ -122,8 +120,7 @@ class RegisterScreen extends StatelessWidget {
                           condition: state is! RegisterLoadingState,
                           builder: (context) => defaultButton(
                             function: () {
-                              if (formKey.currentState!.validate())
-                              {
+                              if (formKey.currentState!.validate()) {
                                 RegisterCubit.get(context).userRegister(
                                   name: nameController.text,
                                   email: emailController.text,
@@ -141,7 +138,6 @@ class RegisterScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20.0,
                         ),
-
                       ],
                     ),
                   ),

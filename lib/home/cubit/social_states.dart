@@ -1,3 +1,5 @@
+import '../../models/post_model.dart';
+
 abstract class SocialStates {}
 
 class SocialInitialState extends SocialStates {}
@@ -6,8 +8,7 @@ class SocialGetUserLoadingState extends SocialStates {}
 
 class SocialGetUserSuccessState extends SocialStates {}
 
-class SocialGetUserErrorState extends SocialStates
-{
+class SocialGetUserErrorState extends SocialStates {
   final String error;
 
   SocialGetUserErrorState(this.error);
@@ -17,8 +18,7 @@ class SocialGetAllUsersLoadingState extends SocialStates {}
 
 class SocialGetAllUsersSuccessState extends SocialStates {}
 
-class SocialGetAllUsersErrorState extends SocialStates
-{
+class SocialGetAllUsersErrorState extends SocialStates {
   final String error;
 
   SocialGetAllUsersErrorState(this.error);
@@ -26,10 +26,14 @@ class SocialGetAllUsersErrorState extends SocialStates
 
 class SocialGetPostsLoadingState extends SocialStates {}
 
-class SocialGetPostsSuccessState extends SocialStates {}
+class SocialGetPostsSuccessState extends SocialStates {
+  List<PostModel> posts;
+  List<String> postsId;
+  List<int> likes;
+  SocialGetPostsSuccessState(this.posts, this.postsId, this.likes);
+}
 
-class SocialGetPostsErrorState extends SocialStates
-{
+class SocialGetPostsErrorState extends SocialStates {
   final String error;
 
   SocialGetPostsErrorState(this.error);
@@ -37,8 +41,7 @@ class SocialGetPostsErrorState extends SocialStates
 
 class SocialLikePostSuccessState extends SocialStates {}
 
-class SocialLikePostErrorState extends SocialStates
-{
+class SocialLikePostErrorState extends SocialStates {
   final String error;
 
   SocialLikePostErrorState(this.error);
@@ -68,7 +71,6 @@ class SocialUserUpdateLoadingState extends SocialStates {}
 
 class SocialUserUpdateErrorState extends SocialStates {}
 
-
 // create post
 
 class SocialCreatePostLoadingState extends SocialStates {}
@@ -90,3 +92,5 @@ class SocialSendMessageSuccessState extends SocialStates {}
 class SocialSendMessageErrorState extends SocialStates {}
 
 class SocialGetMessagesSuccessState extends SocialStates {}
+
+class SocialRefreshSuccessState extends SocialStates {}

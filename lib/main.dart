@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:chat_app/layout/cubit/social_cubit.dart';
-import 'package:chat_app/layout/social_layout.dart';
+import 'package:chat_app/home/cubit/social_cubit.dart';
+import 'package:chat_app/home/social_layout.dart';
 import 'package:chat_app/modules/login_screen/social_login_screen.dart';
 import 'package:chat_app/shared/bloc_observer/bloc_observer.dart';
 import 'package:chat_app/shared/components/constants.dart';
@@ -26,28 +26,24 @@ void main() async {
   bool? isDark = CacheHelper.getData(key: 'isDark');
   Widget widget;
 
- // bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
- // token = CacheHelper.getData(key: 'token');
-   uId = CacheHelper.getData(key: 'uId');
+  // bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  // token = CacheHelper.getData(key: 'token');
+  uId = CacheHelper.getData(key: 'uId');
 
-  if(uId != null){
-    widget =  SocialLayout();
-  }else{
+  if (uId != null) {
+    widget = SocialLayout();
+  } else {
     widget = SocialLoginScreen();
   }
 
-
-
-
-
   runApp(MyApp(
     isDark: isDark,
-    startWidget:widget,
+    startWidget: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
-   bool? isDark;
+  bool? isDark;
 
   Widget? startWidget;
 
@@ -59,32 +55,27 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => AppCubit()..changeAppMode(fromShared: isDark),
-
+          create: (BuildContext context) =>
+              AppCubit()..changeAppMode(fromShared: isDark),
         ),
         BlocProvider(
-          create: (BuildContext context) => SocialCubit()..getUserData()
-
-        ),
+            create: (BuildContext context) => SocialCubit()
+              ..getUserData()
+              ..getPosts()),
       ],
-      child: BlocConsumer<AppCubit ,AppStates>(
-        listener: (context , state) {},
-        builder: (context ,state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: AppCubit.get(context).isDark
-                ? ThemeMode.dark
-                : ThemeMode.light,
-            home:startWidget,
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            home: startWidget,
           );
         },
-
       ),
-
     );
   }
 }
-
-
